@@ -2,7 +2,7 @@
 
 Name:           %{?scl_prefix}perl-HTTP-Tiny
 Version:        0.058
-Release:        5%{?dist}
+Release:        3%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -11,9 +11,6 @@ Source0:        http://www.cpan.org/authors/id/D/DA/DAGOLDEN/HTTP-Tiny-%{version
 # Check for write failure, bug #1031096, refused by upstream,
 # <https://github.com/chansen/p5-http-tiny/issues/32>
 Patch0:         HTTP-Tiny-0.058-Croak-on-failed-write-into-a-file.patch
-# Avoid loading optional modules from default . (CVE-2016-1238)
-# in upstream after 0.059
-Patch1:         HTTP-Tiny-0.058-CVE-2016-1238-avoid-loading-optional-modules-from.patch
 BuildArch:      noarch
 BuildRequires:  findutils
 BuildRequires:  make
@@ -67,7 +64,6 @@ resumes after EINTR.
 %prep
 %setup -q -n HTTP-Tiny-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{?scl:scl enable %{scl} '}perl Makefile.PL INSTALLDIRS=vendor && make %{?_smp_mflags}%{?scl:'}
@@ -87,12 +83,6 @@ find '%{buildroot}' -type f -name .packlist -delete
 %{_mandir}/man3/*
 
 %changelog
-* Fri Aug 05 2016 Jitka Plesnikova <jplesnik@redhat.com> - 0.058-5
-- Update patch to temove patch leftovers
-
-* Tue Aug 02 2016 Jitka Plesnikova <jplesnik@redhat.com> - 0.058-4
-- Avoid loading optional modules from default . (CVE-2016-1238)
-
 * Mon Jul 11 2016 Petr Pisar <ppisar@redhat.com> - 0.058-3
 - SCL
 
