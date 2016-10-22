@@ -2,7 +2,7 @@
 
 Name:           %{?scl_prefix}perl-HTTP-Tiny
 Version:        0.058
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -87,6 +87,9 @@ find '%{buildroot}' -type f -name .packlist -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Aug 05 2016 Jitka Plesnikova <jplesnik@redhat.com> - 0.058-5
+- Update patch to temove patch leftovers
+
 * Tue Aug 02 2016 Jitka Plesnikova <jplesnik@redhat.com> - 0.058-4
 - Avoid loading optional modules from default . (CVE-2016-1238)
 
