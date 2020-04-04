@@ -2,7 +2,7 @@
 
 Name:           %{?scl_prefix}perl-HTTP-Tiny
 Version:        0.076
-Release:        451%{?dist}
+Release:        452%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTTP-Tiny
@@ -14,6 +14,7 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  %{?scl_prefix}perl-generators
 BuildRequires:  %{?scl_prefix}perl-interpreter
+BuildRequires:  %{?scl_prefix}perl(Config)
 BuildRequires:  %{?scl_prefix}perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  %{?scl_prefix}perl(strict)
 BuildRequires:  %{?scl_prefix}perl(warnings)
@@ -65,6 +66,7 @@ resumes after EINTR.
 %prep
 %setup -q -n HTTP-Tiny-%{version}
 %patch0 -p1
+%{?scl:scl enable %{scl} '}perl -MConfig -i -pe %{?scl:'"}'%{?scl:"'}s{^#!/usr/bin/perl}{$Config{startperl}}%{?scl:'"}'%{?scl:"'} eg/*%{?scl:'}
 
 %build
 %{?scl:scl enable %{scl} '}perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 && make %{?_smp_mflags}%{?scl:'}
@@ -83,6 +85,9 @@ resumes after EINTR.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Mar 26 2020 Petr Pisar <ppisar@redhat.com> - 0.076-452
+- Normalize shebangs (bug #1817332)
+
 * Fri Dec 20 2019 Jitka Plesnikova <jplesnik@redhat.com> - 0.076-451
 - SCL
 
